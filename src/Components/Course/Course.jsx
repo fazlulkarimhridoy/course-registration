@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-const Course = ({courseData}) => {
+const Course = ({courseData,handleBookmarks}) => {
     return (
         <div className="card clear-both p-4 bg-white">
             <img src={courseData.image} alt="Shoes" />
@@ -16,7 +16,7 @@ const Course = ({courseData}) => {
                     <h4>Credit : {courseData.hour}hr</h4>
                 </div>
             </div>
-            <button className="bg-[#2F80ED] text-white text-lg font-semibold w-full rounded-lg py-2 mt-7">Select</button>
+            <button onClick={()=>handleBookmarks(courseData)} className="bg-[#2F80ED] text-white text-lg font-semibold w-full rounded-lg py-2 mt-7">Select</button>
         </div>
     );
 };
