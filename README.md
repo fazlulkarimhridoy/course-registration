@@ -1,8 +1,5 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ 1. Add at least 3 Project features
+    1. The project can fetch JSON data and can select & show some of them as bookmarks.
+    2. The project can detect the same data if they are clicked more than once.
+    3. The project can calculate the total credit hours and the remaining credit hours.
+2. States are declared to store updated values and later they are used as props to update values. States are declared using one initial value and one function. The function is mainly built and used to update values.
