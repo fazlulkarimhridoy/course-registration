@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import Course from "../Course/Course";
 import { useState } from "react";
 import Bookmarks from "../Bookmarks/Bookmarks";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Courses = () => {
     // all states
@@ -9,6 +11,7 @@ const Courses = () => {
     const [bookmarks, setBookmarks] = useState([]);
     const [totalCredit, setTotalCredit] = useState(0);
     const [totalRemaining, setTotalRemaining] = useState(20);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     // side effects
     useEffect(() => {
@@ -21,17 +24,35 @@ const Courses = () => {
     const handleBookmarks = (courseData) => {
         const isExisted = bookmarks.find((item) => item.id === courseData.id);
         let credit = courseData.hour;
+        let price = courseData.price;
         if (isExisted) {
-            return alert("You have already selected this course.")
+            return toast.warning('You have already selected this course !', {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
         }
         else {
-            bookmarks.forEach((item)=>{
+            bookmarks.forEach((item) => {
                 credit += item.hour;
+                price += item.price;
+
             });
-            const remainingHour = 20-credit;
-            console.log(credit, remainingHour);
-            setTotalRemaining(remainingHour);
+            if (credit > 20) {
+                return toast.error('You do not have enough credit to select this course !', {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+            }
+            const remainingHour = 20 - credit;
             setTotalCredit(credit);
+            setTotalRemaining(remainingHour);
+            setTotalPrice(price);
             const seclectedBookmarks = [...bookmarks, courseData];
             setBookmarks(seclectedBookmarks);
 
@@ -50,10 +71,12 @@ const Courses = () => {
                     ))
                 }
             </div>
-            <Bookmarks 
-            bookmarks={bookmarks}
-            totalCredit={totalCredit}
-            totalRemaining={totalRemaining}></Bookmarks>
+            <Bookmarks
+                bookmarks={bookmarks}
+                totalCredit={totalCredit}
+                totalRemaining={totalRemaining}
+                totalPrice={totalPrice}></Bookmarks>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };

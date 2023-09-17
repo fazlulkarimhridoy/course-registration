@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-const Bookmarks = ({ bookmarks, totalCredit, totalRemaining }) => {
+const Bookmarks = ({ bookmarks, totalCredit, totalRemaining, totalPrice }) => {
     return (
         <div className="bg-white p-6 rounded-2xl h-[750px]">
             <h2 className="text-2xl font-bold text-[#2F80ED] pb-4">Credit Hour Remaining {totalRemaining} hr</h2>
@@ -14,7 +14,9 @@ const Bookmarks = ({ bookmarks, totalCredit, totalRemaining }) => {
                 }
             </div>
             <hr />
-            <h3 className="text-base font-medium pt-4">Total Credit Hour : {totalCredit}hr</h3>
+            <h3 className="pb-4 text-2xl font-medium pt-4">Total Credit Hour : {totalCredit}</h3>
+            <hr />
+            <h3 className="pb-4 text-2xl font-semibold pt-4">Total Price : {totalPrice} USD</h3>
         </div>
     );
 };
