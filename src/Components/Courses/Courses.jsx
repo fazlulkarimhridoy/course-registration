@@ -22,10 +22,16 @@ const Courses = () => {
 
     // handlers for events
     const handleBookmarks = (courseData) => {
+        // finding matched data
         const isExisted = bookmarks.find((item) => item.id === courseData.id);
+
+        // initial value for credit & price
         let credit = courseData.hour;
         let price = courseData.price;
+
+        // validating for matched data
         if (isExisted) {
+            // toast message
             return toast.warning('You have already selected this course !', {
                 position: toast.POSITION.TOP_CENTER,
                 autoClose: 2000,
@@ -35,13 +41,18 @@ const Courses = () => {
             });
         }
         else {
+            // looping each credit & price
             bookmarks.forEach((item) => {
+                // calculating credit & price
                 credit += item.hour;
                 price += item.price;
 
             });
+
+            // validating for credit limit
             if (credit > 20) {
-                return toast.error('You do not have enough credit to select this course !', {
+                // toast message
+                return toast.error('Not enough credit to select the course and also remaining hour can not be negative !', {
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: 2000,
                     hideProgressBar: true,
@@ -49,12 +60,14 @@ const Courses = () => {
                     pauseOnHover: true,
                 });
             }
+            // calculating remaining hour
             const remainingHour = 20 - credit;
+
+            // setting credit,price,remaining & bookmarks
             setTotalCredit(credit);
             setTotalRemaining(remainingHour);
             setTotalPrice(price);
-            const seclectedBookmarks = [...bookmarks, courseData];
-            setBookmarks(seclectedBookmarks);
+            setBookmarks([...bookmarks, courseData]);
 
         }
 
@@ -64,6 +77,7 @@ const Courses = () => {
         <div className="flex justify-around gap-6 container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-[1000px] gap-6">
                 {
+                    // mapping each course from courses
                     course.map((courseData) => (
                         <Course key={courseData.id}
                             courseData={courseData}
@@ -72,6 +86,7 @@ const Courses = () => {
                 }
             </div>
             <Bookmarks
+                // sending props
                 bookmarks={bookmarks}
                 totalCredit={totalCredit}
                 totalRemaining={totalRemaining}
